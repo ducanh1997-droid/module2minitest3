@@ -141,6 +141,124 @@ public class ProductManager implements ICrudManager<Product> {
         return students;
     }
 
+    public static void deleteById(ArrayList<Product> products,Scanner scanner){
+        boolean check = true;
+        int id = 0;
+        do{
+            try{
+                System.out.println("Nhập id sản phẩm muốn xoá:");
+                id = Integer.parseInt(scanner.nextLine());
+                check = false;
+            }catch(NumberFormatException e){
+                System.out.println("Nhập id sai,nhập lại");
+            }
+        }while(check);
+        products.remove(id-1);
+    }
+
+    public void displayProductCandy(ArrayList<Product> products){
+        ArrayList<Product> productCandys = new ArrayList<>();
+        for(Product product : products){
+            if(product instanceof Candy){
+                productCandys.add(product);
+            }
+        }
+        displayAll(productCandys);
+
+    }
+
+    public void displayProductDrink(ArrayList<Product> products){
+        ArrayList<Product> productDrinks = new ArrayList<>();
+        for(Product product : products){
+            if(product instanceof Drink){
+                productDrinks.add(product);
+            }
+        }
+        displayAll(productDrinks);
+
+    }
+
+    public void displayByPriceMaxMin(ArrayList<Product> products,Scanner scanner){
+        int choice = 0;
+        do{
+            System.out.println("1.Hiển thị sản phẩm giá cao nhất");
+            System.out.println("2.Hiển thị sản phẩm giá thấp nhất");
+            choice = Integer.parseInt(scanner.nextLine());
+            switch(choice){
+                case 1:
+                    ArrayList<Product> listMaxPrice = new ArrayList<>();
+                    int max = (int) products.get(0).getPrice();
+                    for(Product product: products){
+                        if(max<product.getPrice()){
+                            max = (int) product.getPrice();
+                        }
+                    }
+                    for(Product product: products){
+                        if(max == (int) product.getPrice()){
+                            listMaxPrice.add(product);
+                        }
+                    }
+                    displayAll(listMaxPrice);
+                    break;
+                case 2:
+                    ArrayList<Product> listMinPrice = new ArrayList<>();
+                    int min = (int) products.get(0).getPrice();
+                    for(Product product: products){
+                        if(min>product.getPrice()){
+                            min = (int) product.getPrice();
+                        }
+                    }
+                    for(Product product: products){
+                        if(min == (int) product.getPrice()){
+                            listMinPrice.add(product);
+                        }
+                    }
+                    displayAll(listMinPrice);
+                    break;
+            }
+        }while(choice!=0);
+    }
+
+    public void displayByQuantityMaxMin(ArrayList<Product> products,Scanner scanner){
+        int choice = 0;
+        do{
+            System.out.println("1.Hiển thị sản phẩm có số lượng nhiều nhất");
+            System.out.println("2.Hiển thị sản phẩm có số lượng ít nhất");
+            choice = Integer.parseInt(scanner.nextLine());
+            switch(choice){
+                case 1:
+                    ArrayList<Product> listMaxQuantity = new ArrayList<>();
+                    int max = products.get(0).getQuantity();
+                    for(Product product: products){
+                        if(max<product.getQuantity()){
+                            max = product.getQuantity();
+                        }
+                    }
+                    for(Product product: products){
+                        if(max == (int) product.getPrice()){
+                            listMaxQuantity.add(product);
+                        }
+                    }
+                    displayAll(listMaxQuantity);
+                    break;
+                case 2:
+                    ArrayList<Product> listMinQuantity = new ArrayList<>();
+                    int min = products.get(0).getQuantity();
+                    for(Product product: products){
+                        if(min>product.getQuantity()){
+                            min = product.getQuantity();
+                        }
+                    }
+                    for(Product product: products){
+                        if(min == product.getQuantity()){
+                            listMinQuantity.add(product);
+                        }
+                    }
+                    displayAll(listMinQuantity);
+                    break;
+            }
+        }while(choice!=0);
+    }
     private void title() {
         System.out.printf("%-15s%-15s%-15s%-15s%s",
                 "ID", "NAME", "PRICE", "QUANTITY", "CATEGORY\n");

@@ -22,14 +22,34 @@ public class Main {
             System.out.println("3. Hiển thị danh sách sản phẩm");
             System.out.println("4. Hiển thị danh sách sản phẩm là Candy");
             System.out.println("5. Hiển thị danh sách sản phẩm là Drinks");
+            System.out.println("6. Hiển thị danh sách sản phẩm có giá cao nhất, thấp nhất");
+            System.out.println("7. Hiển thị danh sách sản phẩm có số lượng nhiều nhất,ít nhất");
             choice = Integer.parseInt(scanner.nextLine());
             switch(choice){
                 case 1:
                     Product product = productManager.create(scanner);
                     productManager.save(product);
                     break;
+                case 2:
+                    productManager.deleteById(productManager.getProducts(),scanner);
+                    break;
                 case 3:
                     productManager.displayAll(productManager.getProducts());
+                    break;
+                case 4:
+                    productManager.displayProductCandy(productManager.getProducts());
+                    break;
+                case 5:
+                    productManager.displayProductDrink(productManager.getProducts());
+                    break;
+                case 6:
+                    productManager.displayByPriceMaxMin(productManager.getProducts(),scanner);
+                    break;
+                case 7:
+                    productManager.displayByQuantityMaxMin(productManager.getProducts(),scanner);
+                    break;
+
+
             }
         }while(choice != 0);
     }
@@ -49,6 +69,9 @@ public class Main {
                 case 1:
                     Category category = categoryManager.create(scanner);
                     categoryManager.save(category);
+                    break;
+                case 2:
+
                     break;
 
             }
